@@ -1,2 +1,2 @@
 # fcb-web
-web dev.
+after git clone your project, and maven import in your IDE.
