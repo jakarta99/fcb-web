@@ -46,18 +46,18 @@ public class HelloServletDolala extends HttpServlet {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				for (MaskMedical maskmedical : maskList) {
-					String output = "Id = " + maskmedical.getId()+
-							" 醫事機構代碼   : " + maskmedical.getMedicalcode() +
-							" 醫事機構名稱   : " + maskmedical.getMedicalname() +
-							" 醫事機構地址   : " + maskmedical.getMedicalname() +
-							" 醫事機構電話   : " + maskmedical.getMedicalphone() +
-							" 成人口罩剩餘數 : " + maskmedical.getAldultcount() +
-							" 兒童口罩剩餘數 : " + maskmedical.getKidscount();
-					String str=new String(output.getBytes("UTF-8"));
+				for (MaskMedical maskMedical : maskList) {
+					String output = "Id = " + maskMedical.getId()+
+							" 醫事機構代碼   : " + maskMedical.getMedicalcode() +
+							" 醫事機構名稱   : " + maskMedical.getMedicalname() +
+							" 醫事機構地址   : " + maskMedical.getMedicalname() +
+							" 醫事機構電話   : " + maskMedical.getMedicalphone() +
+							" 成人口罩剩餘數 : " + maskMedical.getAldultcount() +
+							" 兒童口罩剩餘數 : " + maskMedical.getKidscount();
+
 					response.setContentType("text/html; charset=gbk");
 					response.setCharacterEncoding("utf-8");
-					out.println(str);
+					out.println(output);
 				}
 			}else{
 				String request1 = request.getParameter("id");
@@ -71,10 +71,10 @@ public class HelloServletDolala extends HttpServlet {
 							" 醫事機構電話   : " + maskMedical.getMedicalphone() +
 							" 成人口罩剩餘數 : " + maskMedical.getAldultcount() +
 							" 兒童口罩剩餘數 : " + maskMedical.getKidscount();
-					String str=new String(output.getBytes("UTF-8"));
+
 					response.setContentType("text/html; charset=gbk");
 					response.setCharacterEncoding("utf-8");
-					out.println(str);
+					out.println(output);
 //					out.println(maskmedical.toString());
 
 				} catch (SQLException e) {
