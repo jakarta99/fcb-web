@@ -8,26 +8,23 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.time.temporal.WeekFields.ISO;
 
 
 /**
  * Servlet implementation class HelloServlet
  */
-@WebServlet("/hello-dolala")
-public class HelloServletDolala extends HttpServlet {
+@WebServlet("/mask-medical")
+public class MaskMedicalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	MaskMedicalService maskMedicalService = new MaskMedicalService();
 
     /**
      * Default constructor. 
      */
-    public HelloServletDolala() {
+    public MaskMedicalServlet() {
         // TODO Auto-generated constructor stub
     }
 
