@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Servlet implementation class HelloServlet
  */
-@WebServlet("/hello-dolala")
+@WebServlet("/mask-medical")
 public class MaskMedicalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	MaskMedicalService maskMedicalService = new MaskMedicalService();
