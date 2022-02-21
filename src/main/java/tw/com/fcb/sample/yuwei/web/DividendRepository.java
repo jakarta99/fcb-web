@@ -1,7 +1,6 @@
 package tw.com.fcb.sample.yuwei.web;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,30 +18,40 @@ public class DividendRepository {
 	HikariDataSource ds;
 	
 	public DividendRepository(){
-//		LocalDateTime startTime = LocalDateTime.now();
-//		
-//		HikariConfig config = new HikariConfig();
-//		config.setJdbcUrl("jdbc:postgresql://localhost:5432/testdb");
-//		config.setUsername("postgres");
-//		config.setPassword("postgres");
-//		config.addDataSourceProperty("minimumIdle", "10");
-//		config.addDataSourceProperty("maximumPoolSize", "30");
-//		
-//		LocalDateTime stopTime = LocalDateTime.now();
-//		Long diff = ChronoUnit.MILLIS.between(startTime, stopTime);
-//		System.out.println("total "+diff+" msec");
-//		this.ds = new HikariDataSource(config);
+		LocalDateTime startTime = LocalDateTime.now();
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:postgresql://localhost:5432/testdb");
+		config.setUsername("postgres");
+		config.setPassword("postgres");
+		config.addDataSourceProperty("minimumIdle", "10");
+		config.addDataSourceProperty("maximumPoolSize", "30");
+		
+		LocalDateTime stopTime = LocalDateTime.now();
+		Long diff = ChronoUnit.MILLIS.between(startTime, stopTime);
+		System.out.println("total "+diff+" msec");
+		this.ds = new HikariDataSource(config);
 	}
 	
 	
 	public Connection getConnection() throws SQLException {
 		
-//		return ds.getConnection();
-//		Class.forName("org.postgresql.Driver");
-		String dbUrl = "jdbc:postgresql://localhost:5432/testdb";
-		String username = "postgres";
-		String password = "postgres";
-		return DriverManager.getConnection(dbUrl, username, password);
+		return ds.getConnection();
+//		try {
+//			Class.forName("org.postgresql.Driver");
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		String dbUrl = "jdbc:postgresql://localhost:5432/testdb";
+//		String username = "postgres";
+//		String password = "postgres";
+//		return DriverManager.getConnection(dbUrl, username, password);
 	}
 	
 	public List<Dividend> findAll() throws SQLException{
