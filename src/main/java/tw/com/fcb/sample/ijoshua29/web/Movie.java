@@ -1,4 +1,4 @@
-package tw.com.fcb;
+package tw.com.fcb.sample.ijoshua29.web;
 
 public class Movie {
 	

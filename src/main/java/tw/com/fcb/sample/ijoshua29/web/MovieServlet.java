@@ -1,4 +1,4 @@
-package tw.com.fcb;
+package tw.com.fcb.sample.ijoshua29.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,7 +49,7 @@ public class MovieServlet extends HttpServlet {
 					out.println(outStr);
 				}
 			} catch (SQLException e) {
-				System.out.println("æŸ¥è©¢è³‡æ–™åº«æœ‰èª¤");
+				System.out.println("¬d¸ß¸ê®Æ®w¦³»~");
 				e.printStackTrace();
 			}
 			
@@ -65,7 +65,7 @@ public class MovieServlet extends HttpServlet {
 				out.println(outStr);
 
 			} catch (SQLException e) {
-				System.out.println("æŸ¥è©¢è³‡æ–™åº«æœ‰èª¤");
+				System.out.println("¬d¸ß¸ê®Æ®w¦³»~");
 				e.printStackTrace();
 			}
 
