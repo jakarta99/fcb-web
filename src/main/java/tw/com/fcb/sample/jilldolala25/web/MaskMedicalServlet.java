@@ -52,9 +52,9 @@ public class MaskMedicalServlet extends HttpServlet {
 							" 成人口罩剩餘數 : " + maskMedical.getAldultcount() +
 							" 兒童口罩剩餘數 : " + maskMedical.getKidscount();
 
-					response.setContentType("text/html; charset=gbk");
-					response.setCharacterEncoding("utf-8");
-					out.println(output);
+					response.setContentType("text/html; charset=utf8");
+//					response.setCharacterEncoding("utf-8");
+					out.println(output+ "</br>");
 				}
 			}else{
 				String request1 = request.getParameter("id");
@@ -69,9 +69,9 @@ public class MaskMedicalServlet extends HttpServlet {
 							" 成人口罩剩餘數 : " + maskMedical.getAldultcount() +
 							" 兒童口罩剩餘數 : " + maskMedical.getKidscount();
 
-					response.setContentType("text/html; charset=gbk");
-					response.setCharacterEncoding("utf-8");
-					out.println(output);
+					response.setContentType("text/html; charset=utf-8");
+//					response.setCharacterEncoding("utf-8");
+					out.println(output+ "</br>");
 //					out.println(maskmedical.toString());
 
 				} catch (SQLException e) {
