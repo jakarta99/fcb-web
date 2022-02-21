@@ -9,12 +9,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 
 public class DataBaseService {
 	private String dbUrl = "jdbc:postgresql://localhost:5432/testdb";
 	private String username = "postgres";
 	private String password = "postgres";
+
 	public Connection ConnectDB() throws SQLException {
+		try {
+			Class.forName("java.sql.DriverManager");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Connection conn = DriverManager.getConnection(dbUrl, username, password);
 		return conn;
 	}
