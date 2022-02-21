@@ -38,7 +38,8 @@ public class RetireAgeServlet extends HttpServlet {
         
 		out.println("Hello id!!!~~="+request.getParameter("id") + "<BR>");
 		if (request.getParameter("id") == null) {
-			try {           
+			try {  
+				
 //	            List<String> resultFile = new RetireAgeService().loadFromFile();
 //	            out.println("***檔案內容輸出****");
 //	            out.println("目前已經有 "+resultFile.size()+"筆資料<br>");
