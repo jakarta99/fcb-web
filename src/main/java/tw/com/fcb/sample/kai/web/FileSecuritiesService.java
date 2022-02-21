@@ -87,14 +87,16 @@ public class FileSecuritiesService {
 	}
 	
 	// findOrderDataByCols()
-	public void findOrderDataByCols(String column) throws Exception {
+	public List<FileSecurities> findOrderDataByCols(String column) throws Exception {
 		fileRepository = new FileRepository();
 		listSecurities = fileRepository.findOrderDataByCols(column);
 		
-		System.out.println("共有 " + listSecurities.size() + " 筆資料");
-		for(int i = 0 ; i < listSecurities.size() ; i++) {
-			System.out.println(listSecurities.get(i).toString());
-		}
+		return listSecurities;
+		
+//		System.out.println("共有 " + listSecurities.size() + " 筆資料");
+//		for(int i = 0 ; i < listSecurities.size() ; i++) {
+//			System.out.println(listSecurities.get(i).toString());
+//		}
 	}
 	
 	// findAll()
@@ -133,19 +135,19 @@ public class FileSecuritiesService {
 	public void update(String stockCode, String stockOrder) throws Exception {
 		fileRepository = new FileRepository();
 		
-		System.out.println("修改前: ");
-		findById(stockOrder);
+//		System.out.println("修改前: ");
+//		findById(stockOrder);
 		
-		System.out.println("修改後: ");
+//		System.out.println("修改後: ");
 		fileRepository.update(stockCode, stockOrder);
-		findById(stockOrder);
+//		findById(stockOrder);
 	}
 	
 	// delete
 	public void delete(String stockOrder) throws Exception {
 		fileRepository = new FileRepository();
 		fileRepository.delete(stockOrder);
-		findAll();
+//		findAll();
 	}
 	
 	// securituesToString()

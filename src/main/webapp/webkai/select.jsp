@@ -8,10 +8,12 @@
 <html>
 	<head>
 		<meta charset="BIG5">
-		<title>Hello! Servlet!</title>
+		<title>Servlet - Select</title>
+		<%@ include file="style.jsp" %>
 	</head>
 	<body>
-		<table border=1 cellpadding=5>
+		<a href="index">首頁</a>
+		<table class="table table-bordered table-striped table-hover table-condensed">
 			<tr>
 				<th> StockOrder </th>
 				<th> StockCode </th>
@@ -51,8 +53,8 @@
 					<td><%=list.getEtfName()%></td>
 					<td><%=list.getEtfTransaction() %></td>
 					<td><%=list.getCurrencyEnum() %></td>
-					<td><a href=""> update </td>
-					<td><a href=""> delete </td>
+					<td><a href="update?id=<%=list.getSecuritiesOrder()%>"> update </td>
+					<td><a href="delete?id=<%=list.getSecuritiesOrder()%>"> delete </td>
 				</tr>
 			<% } %>
 			

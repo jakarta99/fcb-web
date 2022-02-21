@@ -57,7 +57,7 @@ public class FileRepository {
 		
 		connection = getConnection();
 			
-		String selectSql = "SELECT * FROM stock";
+		String selectSql = "SELECT * FROM stock ORDER BY stockorder";
 		pStatement = connection.prepareStatement(selectSql);
 		resultSet = pStatement.executeQuery();
 		
@@ -118,7 +118,6 @@ public class FileRepository {
 		connection = getConnection();
 			
 		String selectSql = "SELECT * FROM stock ORDER BY " + column + "";
-		System.out.println(selectSql);
 		pStatement = connection.prepareStatement(selectSql);
 		resultSet = pStatement.executeQuery();
 		
