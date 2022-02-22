@@ -13,6 +13,8 @@
 	</head>
 	<body>
 		<a href="index">­º­¶</a>
+		
+		<form action="update" method="POST">
 		<table class="table table-bordered table-striped table-hover table-condensed">
 			<tr>
 				<th> StockOrder </th>
@@ -25,18 +27,18 @@
 				<th> Currency </th>
 			</tr>
 			<tr>
-				<td>${stockOrder}</td>
-				<td>${stockCode}</td>
-				<td>${stockName}</td>
-				<td>${stockTrans}</td>
-				<td>${etfCode}</td>
-				<td>${etfName}</td>
-				<td>${etfTrans}</td>
-				<td>${currCode}</td>
+				<td><input type="text" name=stockOrder value=${stockOrder}></td>
+				<td><input type="text" name=stockCode value=${stockCode}></td>
+				<td><input type="text" name=stockName value=${stockName}></td>
+				<td><input type="text" name=stockTrans value=${stockTrans}></td>
+				<td><input type="text" name=etfCode value=${etfCode}></td>
+				<td><input type="text" name=etfName value=${etfName}></td>
+				<td><input type="text" name=etfTrans value=${etfTrans}></td>
+				<td><input type="text" name=currCode value=${currCode}></td>
 			</tr>
 		</table>
-		<button type="button" class="btn btn-default btn-lg">
-			<span class="glyphicon glyphicon-star" aria-hidden="true">­×§ï</span>
-		</button>
+		<input type="submit" value="­×§ï" name="send" class="btn btn-default btn-lg"/>
+		</form>
+		
 	</body>
 </html>

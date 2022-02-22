@@ -1,6 +1,7 @@
 package tw.com.fcb.sample.kai.web;
 
 import java.io.FileInputStream;
+import java.nio.file.FileStore;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ public class FileRepository {
         config.setJdbcUrl("jdbc:postgresql://localhost:5432/testdb");
         config.setUsername("postgres");
         config.setPassword("postgres");
-        config.addDataSourceProperty("minimumIdle", "10");
+        config.addDataSourceProperty("minimumIdle", "30");
         config.addDataSourceProperty("maximumPoolSize", "30");
         this.ds = new HikariDataSource(config);
 		
@@ -56,7 +57,6 @@ public class FileRepository {
 		ResultSet resultSet = null;
 		
 		connection = getConnection();
-			
 		String selectSql = "SELECT * FROM stock ORDER BY stockorder";
 		pStatement = connection.prepareStatement(selectSql);
 		resultSet = pStatement.executeQuery();
@@ -86,7 +86,6 @@ public class FileRepository {
 		ResultSet resultSet = null;
 		
 		connection = getConnection();
-			
 		String selectSql = "SELECT * FROM stock ORDER BY stockcode";
 		pStatement = connection.prepareStatement(selectSql);
 		resultSet = pStatement.executeQuery();
@@ -116,7 +115,6 @@ public class FileRepository {
 		ResultSet resultSet = null;
 		
 		connection = getConnection();
-			
 		String selectSql = "SELECT * FROM stock ORDER BY " + column + "";
 		pStatement = connection.prepareStatement(selectSql);
 		resultSet = pStatement.executeQuery();
@@ -146,7 +144,6 @@ public class FileRepository {
 		ResultSet resultSet = null;
 		
 		connection = getConnection();
-			
 		String selectSql = "SELECT * FROM stock WHERE stockOrder = ?";
 		pStatement = connection.prepareStatement(selectSql);
 		pStatement.setString(1, stockOrder);
@@ -177,8 +174,6 @@ public class FileRepository {
 	public void insert(FileSecurities fileSecurities) throws Exception {
 		Connection connection = null;
 		PreparedStatement pStatement = null;
-
-		connection = getConnection();
 		
 		//方法一
 		//CREATE type curr_enum as enum('USD', 'EUR', 'JPY', 'ZAR', 'TWD');
@@ -186,6 +181,7 @@ public class FileRepository {
 		//String insertSql = "INSERT INTO stock VALUES(?, ?, ?, ?, ?, ?, ?, ?::curr_enum)";
 		//pStatement.setString(8, fileSecurities.getCurrencyEnum().name());
 		
+		connection = getConnection();
 		String insertSql = "INSERT INTO stock VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		pStatement = connection.prepareStatement(insertSql);
 		pStatement.setString(1, fileSecurities.getSecuritiesOrder());
@@ -201,19 +197,28 @@ public class FileRepository {
 	}
 	
 	// update
-	public void update(String stockCode, String stockOrder) throws Exception {
+	public void update(FileSecurities fileSecurities) throws Exception {
 		Connection connection = null;
 		PreparedStatement pStatement = null;
-
-		connection = getConnection();
-			
-		String updateSql = "UPDATE stock SET stockcode = ? WHERE stockorder = ?";
-		pStatement = connection.prepareStatement(updateSql);
-		pStatement.setString(1, stockCode);
-		pStatement.setString(2, stockOrder);
 		
-		int affectedRow = pStatement.executeUpdate();
-		System.out.println("共 " + affectedRow + " 筆資料更新");
+		connection = getConnection();
+		String updateSql = "UPDATE stock SET stockcode = ?, stockname = ?, stocktransaction = ?, "
+				+ "etfcode = ?, etfname = ?, etftransaction = ?, curr_code=? WHERE stockorder = ?";
+		
+		pStatement = connection.prepareStatement(updateSql);
+		pStatement.setString(1, fileSecurities.getStockCode());
+		pStatement.setString(2, fileSecurities.getStockName());
+		pStatement.setString(3, fileSecurities.getEtfTransaction());
+		pStatement.setString(4, fileSecurities.getEtfCode());
+		pStatement.setString(5, fileSecurities.getEtfName());
+		pStatement.setString(6, fileSecurities.getEtfTransaction());
+		pStatement.setObject(7, fileSecurities.getCurrencyEnum(), java.sql.Types.OTHER);
+		pStatement.setString(8, fileSecurities.getSecuritiesOrder());
+		pStatement.executeUpdate();
+		pStatement.clearParameters();
+		
+//		int affectedRow = pStatement.executeUpdate();
+//		System.out.println("共 " + affectedRow + " 筆資料更新");
 	}
 	
 	// delete
@@ -222,7 +227,6 @@ public class FileRepository {
 		PreparedStatement pStatement = null;
 
 		connection = getConnection();
-			
 		String updateSql = "DELETE FROM stock WHERE stockorder = ?";
 		pStatement = connection.prepareStatement(updateSql);
 		pStatement.setString(1, stockOrder);

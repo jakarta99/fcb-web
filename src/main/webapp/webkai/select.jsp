@@ -53,8 +53,8 @@
 					<td><%=list.getEtfName()%></td>
 					<td><%=list.getEtfTransaction() %></td>
 					<td><%=list.getCurrencyEnum() %></td>
-					<td><a href="update?id=<%=list.getSecuritiesOrder()%>"> update </td>
-					<td><a href="delete?id=<%=list.getSecuritiesOrder()%>"> delete </td>
+					<td><a href="update?id=<%=list.getSecuritiesOrder()%>"> update </a></td>
+					<td><a href="delete?id=<%=list.getSecuritiesOrder()%>"> delete </a></td>
 				</tr>
 			<% } %>
 			

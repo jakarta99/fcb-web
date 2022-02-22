@@ -128,19 +128,13 @@ public class FileSecuritiesService {
 	public void insert(FileSecurities fileSecurities) throws Exception {
 		fileRepository = new FileRepository();
 		fileRepository.insert(fileSecurities);
-		findAll();
+//		findAll();
 	}
 	
 	// update
-	public void update(String stockCode, String stockOrder) throws Exception {
+	public void update(FileSecurities fileSecurities) throws Exception {
 		fileRepository = new FileRepository();
-		
-//		System.out.println("修改前: ");
-//		findById(stockOrder);
-		
-//		System.out.println("修改後: ");
-		fileRepository.update(stockCode, stockOrder);
-//		findById(stockOrder);
+		fileRepository.update(fileSecurities);
 	}
 	
 	// delete
