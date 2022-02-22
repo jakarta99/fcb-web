@@ -34,23 +34,84 @@ public class LanguageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-
+		String seq = request.getParameter("seq");
+		String func = request.getParameter("func");
+		String level = request.getParameter("level");
 		List<Language> result = new ArrayList<Language>();
 		DataBaseService DB = new DataBaseService();
 		Language Lan = new Language();
 		
 		response.setContentType("text/html; charset=utf-8");
 		
-		try {
-			result = DB.findAll();
-			for(int i = 0; i < result.size(); i++){
-				out.println(result.get(i).toString()+"<br>");
+		switch (func) {
+		//find all
+		case "1" :
+			try {
+				result = DB.findAll();
+				for(int i = 0; i < result.size(); i++){
+					out.println(result.get(i).toString()+"<br>");
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				out.print("資料庫錯誤");
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			out.print("資料庫錯誤");
-			e.printStackTrace();
+			break;
+		//insert
+		case "2" :	
+			try {
+				Lan = DB.findByID(1);
+				Lan.setSeq(Integer.valueOf(seq));
+				DB.Insert(Lan);
+				out.println("新增資料 : "+ Lan.toString()+"<br>");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				out.print("資料庫錯誤");
+				e1.printStackTrace();
+			}
+			break;
+		//update
+		case "3" :
+			try {
+				Lan = DB.findByID(Integer.valueOf(seq));
+				out.println("原始資料為 : "+ Lan.toString()+"<br>");
+				Lan.setLevel(LanguageLevelEnum.valueOf(level));
+				out.println("更新資料為 : "+ Lan.toString()+"<br>");
+				DB.Update(Lan);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				out.print("資料庫錯誤");
+				e.printStackTrace();
+			}
+			break;
+		//delete
+		case "4" :
+			try {
+				DB.Delete(Integer.valueOf(seq));
+				out.println("成功刪除資料");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				out.print("資料庫錯誤");
+				e.printStackTrace();
+			}
+			break;
+		//find by id
+		case "5" :
+			try {
+				Lan = DB.findByID(Integer.valueOf(seq));
+				out.println("資料為 : "+ Lan.toString()+"<br>");
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				out.print("資料庫錯誤");
+				e.printStackTrace();
+			}
+			break;
 		}
+		
+		
+
 
 	}
 

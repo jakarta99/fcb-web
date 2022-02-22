@@ -111,7 +111,6 @@ public class DataBaseService {
 		pStatement.setString(6,Lan.getJoinNum());
 		pStatement.setString(7,Lan.getPassNum());
 		pStatement.executeUpdate();
-		pStatement.clearParameters();
 	}
 	public void Delete(int ID) throws Exception{
 		PreparedStatement pStatement = null;
