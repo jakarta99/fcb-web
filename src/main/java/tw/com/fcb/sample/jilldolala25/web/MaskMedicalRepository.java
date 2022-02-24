@@ -12,9 +12,13 @@ import java.util.List;
 
 public class MaskMedicalRepository {
     HikariDataSource ds;
-    public  MaskMedicalRepository() {
+    public  MaskMedicalRepository()  {
         LocalDateTime startTime = LocalDateTime.now();
-
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:postgresql://localhost:5432/testdb");
         config.setUsername("postgres");
@@ -29,6 +33,7 @@ public class MaskMedicalRepository {
     }
 
     public Connection getConnection() throws SQLException {
+
         return ds.getConnection();
 //        String dbUrl = "jdbc:postgresql://localhost:5432/testdb";
 //        String username = "postgres";
@@ -123,11 +128,11 @@ public class MaskMedicalRepository {
         conn.close();
         return maskMedical;
     }
-    public void updateDateByKey(Long id, String formatDate) throws SQLException {
+    public void updateDateByKey(Long id, String formatDate,String phone) throws SQLException {
 
         Connection conn = getConnection();
 
-        String sqlCmd = "update maskmedical set update_date = '" + formatDate +"' where id = " + id;
+        String sqlCmd = "update maskmedical set update_date = '" + formatDate +"'," + "medical_phone = '"+ phone + "'where id = " + id;
         PreparedStatement stmt = conn.prepareStatement(sqlCmd);
 
         stmt.executeUpdate();
@@ -240,5 +245,16 @@ public class MaskMedicalRepository {
             }
         }
 
+    }
+
+    public void updateBykey(Long id,String formatDate,String phone) throws SQLException {
+        Connection conn = getConnection();
+        String sqlCmd = "update maskmedical set update_date = ? , medical_phone = ? where id = ? ";
+        PreparedStatement pstmt = conn.prepareStatement(sqlCmd);
+        pstmt.setString(1,formatDate);
+        pstmt.setString(2,phone);
+        pstmt.setLong(3,id);
+        pstmt.executeUpdate();
+        pstmt.clearParameters();
     }
 }

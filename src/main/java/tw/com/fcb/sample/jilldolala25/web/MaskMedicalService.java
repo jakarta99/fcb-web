@@ -20,40 +20,60 @@ public class MaskMedicalService {
 
 
 
-    public List<MaskMedical> getAll() throws SQLException {
+    public List<MaskMedical> getAll() throws SQLException, ClassNotFoundException {
         MaskMedicalRepository maskMedicalRepository = new MaskMedicalRepository();
         maskList = maskMedicalRepository.findALl();
         return maskList;
     }
-    public MaskMedical findById(Long id) throws SQLException {
+    public MaskMedical findById(Long id) throws SQLException, ClassNotFoundException {
         MaskMedicalRepository maskMedicalRepository = new MaskMedicalRepository();
           MaskMedical maskMedical = maskMedicalRepository.getById(id);
           return maskMedical;
     }
+
+    public void insertData(MaskMedical maskMedical) throws SQLException {
+        MaskMedicalRepository maskMedicalRepository = new MaskMedicalRepository();
+        // insert資料
+        maskMedicalRepository.insertOneRecord(maskMedical);
+
+    }
+
+    public String updateData(Long id,String phone) throws SQLException {
+        MaskMedicalRepository maskMedicalRepository = new MaskMedicalRepository();
+//        maskMedicalRepository.updateDateByKey(id, updateDate,phone);
+        maskMedicalRepository.updateBykey(id,updateDate,phone);
+        return updateDate;
+    }
+
+    public void deleteData(Long id) throws SQLException {
+        MaskMedicalRepository maskMedicalRepository = new MaskMedicalRepository();
+        maskMedicalRepository.deleteByKey(id);
+    }
+
     public List<MaskMedical> runCrud() throws SQLException {
 
             MaskMedical maskMedical = setMaskMedical();
             // findAll
             maskList = maskMedicalRepository.findALl();
-//            System.out.println("新增資料前，資料庫資料總共 = " + maskList.size() + "筆");
-//            // insert資料
-//            maskMedicalRepository.insertOneRecord(maskMedical);
-//            maskList = maskMedicalRepository.findALl();
-//           System.out.println("新增資料後，資料庫資料總共 = " + maskList.size() + "筆");
-//            // updateByKey  更新日期
-//            System.out.println("資料更新前 = "+ maskMedical);
+            System.out.println("新增資料前，資料庫資料總共 = " + maskList.size() + "筆");
+            // insert資料
+            maskMedicalRepository.insertOneRecord(maskMedical);
+            maskList = maskMedicalRepository.findALl();
+           System.out.println("新增資料後，資料庫資料總共 = " + maskList.size() + "筆");
+            // updateByKey  更新日期
+            System.out.println("資料更新前 = "+ maskMedical);
 //            maskMedicalRepository.updateDateByKey(maskMedical.getId(), updateDate);
-//            MaskMedical maskRs = maskMedicalRepository.getById(maskMedical.getId());
-//            System.out.println("資料更新後 = "+ maskRs);
-//
-//            //deleteByKey
-//            maskMedicalRepository.deleteByKey(maskRs.getId());
-//            System.out.println("已刪除資料 = " + maskRs);
-//            maskList = maskMedicalRepository.findALl();
-//            System.out.println("刪除資料後總共 = " + maskList.size()+ "筆");
+            MaskMedical maskRs = maskMedicalRepository.getById(maskMedical.getId());
+            System.out.println("資料更新後 = "+ maskRs);
+
+            //deleteByKey
+            maskMedicalRepository.deleteByKey(maskRs.getId());
+            System.out.println("已刪除資料 = " + maskRs);
+            maskList = maskMedicalRepository.findALl();
+            System.out.println("刪除資料後總共 = " + maskList.size()+ "筆");
         return maskList;
     }
-    public void LoadMedicalFile()  {
+    public void LoadMedicalFile() throws ClassNotFoundException {
         String inputFile = "c:\\data\\maskdata.csv";
 
         maskMedicalRepository = new MaskMedicalRepository();
