@@ -11,6 +11,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tw.com.fcb.Movie;
+import tw.com.fcb.MovieRoomEnum;
+import tw.com.fcb.MovieService;
 
 
 
@@ -79,7 +82,78 @@ public class MovieServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		PrintWriter out = response.getWriter();
+		MovieService movieService = new MovieService();
+		Movie postMovie;
+		Movie getMovie;
+		String name;
+		String code;
+		int price;
+		String room;
+		long id;
+		
+		if (request.getParameter("action").equals("insert")) 
+		{
+			try {
+				code = request.getParameter("code");
+				name = request.getParameter("name");
+				room = request.getParameter("room");
+				price = Integer.parseInt(request.getParameter("price"));
+				
+				postMovie = new Movie();
+				postMovie.setCode(code);
+				postMovie.setName(name);
+				postMovie.setPrice(price);
+				postMovie.setRoom(MovieRoomEnum.valueOf(room));
+				
+				getMovie = movieService.insert(postMovie);
+				response.setContentType("text/html; charset=utf-8");
+				out.println(getMovie.toString());
+				
+			} catch (SQLException e) {
+				System.out.println("查詢資料庫有誤");
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("輸入金額有誤");
+				e.printStackTrace();
+			} catch (Exception e) {
+				System.out.println("資料有誤");
+				e.printStackTrace();
+			}
+		}
+		else if (request.getParameter("action").equals("update")) 
+		{
+			try {
+				code = request.getParameter("code");
+				name = request.getParameter("name");
+				room = request.getParameter("room");
+				price = Integer.parseInt(request.getParameter("price"));
+				id = Long.parseLong(request.getParameter("id"));
+				
+				postMovie = new Movie();
+				postMovie.setCode(code);
+				postMovie.setName(name);
+				postMovie.setPrice(price);
+				postMovie.setRoom(MovieRoomEnum.valueOf(room));
+				postMovie.setId(id);
+				
+				getMovie = movieService.update(postMovie);
+				response.setContentType("text/html; charset=utf-8");
+				out.println(getMovie.toString());
+				
+			} catch (SQLException e) {
+				System.out.println("查詢資料庫有誤");
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("輸入金額有誤");
+				e.printStackTrace();
+			} catch (Exception e) {
+				System.out.println("資料有誤");
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }
